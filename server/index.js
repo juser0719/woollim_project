@@ -7,8 +7,20 @@ const app = express();
 const server =http.createServer(app);
 const io = socketio(server);
 
+const { addUser, removeUser , getUser , getUsersInRoom} = require('./users');
+
 io.on('connection', (socket) => {
     console.log('New Connection!');
+
+    socket.on('join', ({name, room}, callback) =>{
+       // console.log (name , room);
+       const {error , user } = addUser({id: socket.id, name, room});
+
+       if(error) return callback(error);
+
+       
+    });
+
     socket.on('disconnect', () => {
         console.log('User had left :( ');
     });

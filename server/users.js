@@ -24,6 +24,7 @@ const removeUser = (id) => {
 
 const getUser = (id) => users.find((user) => user.id === id);
 
-const getUsersInRoom = (room) => users.filter((user) => user.room === room ); //room
+const getUsersInRoom = (room) => users.filter((user) => user.room === room ); //filter: callbackFunction의 조건에 해당하는 모든 요소가 있는 배열을 새로 생성하는 기능을 합니다.
+
 
 module.exports = {addUser ,removeUser, getUser , getUsersInRoom }

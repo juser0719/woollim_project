@@ -3,14 +3,17 @@ import queryString from 'query-string'; //url에 쿼리 값이 포함되어 있�
 import io from 'socket.io-client';
 import './Chat.css';
 import InfoBar from '../InfoBar/InfoBar';
+import Input from '../Input/Input';
+import Messages from '../Messages/Messages';
+
 let socket; //if connected, save info in socket.
 
 const Chat = ({location}) => {
 
     const [name , setName] = useState('');
     const [room , setRoom] = useState('');
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([]);    
+    const [message, setMessage] = useState('');  //single message
+    const [messages, setMessages] = useState([]);//total message list
     const CLIENTPOINT = 'localhost:5000';
     useEffect (() => {
         const {name , room} = queryString.parse(location.search); //쿼리 문자열로 데이터 parse한 객체 생성
@@ -49,10 +52,10 @@ const Chat = ({location}) => {
         <div className ="outerContainer">
             <div className = "container">
                <InfoBar room={room} />
-                   {/*<input value = {message} onChange= {(e) => setMessage(e.target.value)}
-                onKeyPress = {e => e.key === 'Enter' ? sendMessage(e) : null}/>*/}
-               
+               <Messages messages = {messages} name = {name}/>
+               <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
             </div>
+           
         </div>
     )
 }

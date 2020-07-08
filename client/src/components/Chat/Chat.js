@@ -14,7 +14,7 @@ const Chat = ({location}) => {
     const [room , setRoom] = useState('');
     const [message, setMessage] = useState('');  //single message
     const [messages, setMessages] = useState([]);//total message list
-    const CLIENTPOINT = 'localhost:5000';
+    const CLIENTPOINT = 'https://react-chat-prectice.herokuapp.com/';
     useEffect (() => {
         const {name , room} = queryString.parse(location.search); //쿼리 문자열로 데이터 parse한 객체 생성
 

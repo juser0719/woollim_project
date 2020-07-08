@@ -18,16 +18,16 @@ io.on('connection', (socket) => {
 
     socket.on('join', ({name, room}, callback) =>{
        // console.log (name , room);
-       const {error , user } = addUser({id: socket.id, name, room});
+       const {error , user } = addUser({id: socket.id, name, room}); //get error and user data.
 
        if(error) return callback(error); // error massege return.
     
        socket.emit('message', {user: 'admin', text: `Welcome ${user.name}, join in ${user.room}`});// user who first enter in room
        socket.broadcast.to(user.room).emit('message', {user:'admin', text: `${user.name}, has joined`});//room member know who has joined.
        //socket.broadcast.to : send massage to everyone except me.
-       socket.join(user.room);
+       socket.join(user.room); // join in room
 
-       io.to(user.room).emit('roomData', {room: user.room ,users: getUsersInRoom(user.room)});
+       io.to(user.room).emit('roomData', {room: user.room ,users: getUsersInRoom(user.room)}); 
 
        callback();
     });
@@ -48,5 +48,4 @@ io.on('connection', (socket) => {
     });
 });
 
-app.use(router);
-server.listen(PORT, () => console.log(`server started, port : ${PORT}  `));
+server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
